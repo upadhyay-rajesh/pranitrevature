@@ -1,8 +1,16 @@
 package com.pranitproject.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "pranittable")
 public class FacebookUser {
 	private String name;
 	private String password;
+	
+	@Id
 	private String email;
 	private String address;
 	public String getName() {
