@@ -36,6 +36,12 @@ public class FacebookController {
 		return "profile deleted "+em;
 	}
 	
+	@GetMapping("login/{id}/{pass}")
+	public FacebookUser loginUser(@PathVariable("id") String email,@PathVariable("pass") String password) {
+		FacebookUser f=fs.loginUserService(email,password);
+		return f;
+	}
+	
 	
 	@PutMapping("edit/{em}")
 	public String editProfile(@PathVariable("em") String email,@RequestBody FacebookUser fb) {

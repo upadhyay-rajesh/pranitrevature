@@ -12,4 +12,6 @@ public interface FacebookServiceInterface {
 
 	void deleteProfile(String em);
 
+	FacebookUser loginUserService(String email, String password);
+
 }
