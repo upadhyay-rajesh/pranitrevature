@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.pranitproject.exception.UserNotFoundException;
 import com.pranitproject.dao.FacebookDAOInterface;
 import com.pranitproject.entity.FacebookUser;
 
@@ -27,11 +28,14 @@ public class FacebookService implements FacebookServiceInterface {
 	}
 
 	@Override
-	public FacebookUser viewProfile(String email) {
+	public FacebookUser viewProfile(String email) throws UserNotFoundException{
 		FacebookUser f1=null;
 		Optional<FacebookUser> oo=  fd.findById(email);
 		if(oo.isPresent()) {
 			f1= oo.get();
+		}
+		else {
+			throw new UserNotFoundException("profile not found for given email "+email);
 		}
 		return f1;
 		

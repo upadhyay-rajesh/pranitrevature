@@ -1,5 +1,9 @@
 package com.pranitproject.controller;
 
+import java.util.logging.Logger;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,18 +17,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pranitproject.exception.UserNotFoundException;
 import com.pranitproject.entity.FacebookUser;
 import com.pranitproject.service.FacebookServiceInterface;
 
 @RestController
 public class FacebookController { 
 	
+	
+	
 	@Autowired // it will inform to BeanFactory to create object of that class which is using given interface and inject that object using setter method
 				// this object will be singleton by default
 	private FacebookServiceInterface fs; 
  
 	@PostMapping("register")
-	public @ResponseBody FacebookUser createProfile(@RequestBody FacebookUser fb) {// here we are taking user data from UI and storing inside entity class via @RequestBody)
+	public @ResponseBody FacebookUser createProfile( @Valid @RequestBody FacebookUser fb) {// here we are taking user data from UI and storing inside entity class via @RequestBody)
+		
 		return fs.createProfile(fb); 
 	}
 
@@ -51,9 +59,23 @@ public class FacebookController {
 	}
 
 	@GetMapping("view/{em}")
-	public FacebookUser viewProfile(@PathVariable("em") String email) {
+	public FacebookUser viewProfile(@PathVariable("em") String email)throws UserNotFoundException {
 		FacebookUser ff=fs.viewProfile(email);
 		return ff;
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

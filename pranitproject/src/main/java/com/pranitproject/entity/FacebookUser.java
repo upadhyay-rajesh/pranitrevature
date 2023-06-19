@@ -3,14 +3,23 @@ package com.pranitproject.entity;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "pranittable")
 public class FacebookUser {
+	
+	@NotNull(message = "Name value is required")
+	@Size(min = 3, max=8, message="minimum length of name must be 3 and maximum must be 8")
 	private String name;
+	@Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s).*$", message = "password is incorrect")
 	private String password;
 	
 	@Id
+	@Email(message = "email is not correct")
 	private String email;
 	private String address;
 	public String getName() {
